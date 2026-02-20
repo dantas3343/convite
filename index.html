@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite Especial ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  color:white;
+}
+
+.slider{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+
+.slider img{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  animation:slide 24s infinite;
+}
+
+.slider img:nth-child(1){animation-delay:0s;}
+.slider img:nth-child(2){animation-delay:6s;}
+.slider img:nth-child(3){animation-delay:12s;}
+.slider img:nth-child(4){animation-delay:18s;}
+
+@keyframes slide{
+  0%{opacity:0;}
+  5%{opacity:1;}
+  25%{opacity:1;}
+  30%{opacity:0;}
+  100%{opacity:0;}
+}
+
+.overlay{
+  background:rgba(0,0,0,0.6);
+  width:100%;
+  height:100%;
+  position:absolute;
+}
+
+.content{
+  position:relative;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:3rem;
+  margin-bottom:20px;
+}
+
+p{
+  font-size:1.2rem;
+  max-width:600px;
+  margin-bottom:30px;
+}
+
+.botoes{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.btn{
+  padding:15px 40px;
+  background:#b3003c;
+  border:none;
+  border-radius:30px;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:#ff004c;
+}
+
+.sim{transition:0.3s;}
+.nao{position:relative;}
+
+.footer{
+  position:absolute;
+  bottom:20px;
+  font-size:0.9rem;
+  opacity:0.8;
+}
+
+/* Pedido */
+
+.pedido-container{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:black;
+  animation:fadeIn 1.5s ease;
+}
+
+.pedido-box{
+  text-align:center;
+  max-width:600px;
+  padding:40px;
+  background:rgba(255,255,255,0.05);
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 40px rgba(255,0,80,0.4);
+}
+
+.anel{
+  font-size:50px;
+  margin:20px 0;
+  animation:pulse 1.5s infinite;
+}
+
+input{
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  margin-top:10px;
+  font-size:1rem;
+}
+
+.btn-confirmar{
+  margin-top:20px;
+  padding:15px 30px;
+  border:none;
+  border-radius:30px;
+  background:#ff0055;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn-confirmar:hover{
+  transform:scale(1.05);
+}
+
+.final{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:black;
+  animation:fadeIn 1.5s ease;
+}
+
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:subir 3s linear forwards;
+}
+
+@keyframes subir{
+  0%{transform:translateY(0);opacity:1;}
+  100%{transform:translateY(-100vh);opacity:0;}
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="musica" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b5f6f47.mp3" type="audio/mpeg">
+</audio>
+
+<div class="slider">
+  <img src="foto1.png">
+  <img src="foto2.png">
+  <img src="foto3.png">
+  <img src="foto4.png">
+  <div class="overlay"></div>
+</div>
+
+<div class="content">
+  <h1>Anne ❤️</h1>
+  <p>
+    Quero transformar uma noite comum em algo inesquecível.
+      Um jantar, conversas sinceras, risadas, olhares que dizem tudo…
+      Você aceita viver esse momento comigo?
+  </p>
+
+  <div class="botoes">
+    <button class="btn sim" onclick="aceitou()">Sim ❤️</button>
+    <button class="btn nao" id="naoBtn">Não 😏</button>
+  </div>
+
+  <div class="footer">
+    Com carinho, Artur ✨
+  </div>
+</div>
+
+<script>
+
+const naoBtn=document.getElementById("naoBtn");
+let escala=1;
+
+naoBtn.addEventListener("mouseover",fugir);
+naoBtn.addEventListener("click",fugir);
+
+function fugir(){
+  const largura=window.innerWidth-naoBtn.offsetWidth;
+  const altura=window.innerHeight-naoBtn.offsetHeight;
+
+  naoBtn.style.position="fixed";
+  naoBtn.style.left=Math.random()*largura+"px";
+  naoBtn.style.top=Math.random()*altura+"px";
+
+  escala+=0.2;
+  document.querySelector(".sim").style.transform="scale("+escala+")";
+}
+
+function aceitou(){
+  document.getElementById("musica").play();
+
+  document.body.innerHTML=`
+  <div class="pedido-container">
+    <div class="pedido-box">
+      <h1>Anne ❤️</h1>
+      <p>Desde o primeiro momento eu soube que você era especial.</p>
+      <div class="anel">💍</div>
+      <h2>Aceita jantar comigo?</h2>
+      <input type="date" id="dataJantar">
+      <br>
+      <button class="btn-confirmar" onclick="confirmar()">Confirmar Nosso Momento ✨</button>
+    </div>
+  </div>`;
+}
+
+function confirmar(){
+  const data=document.getElementById("dataJantar").value;
+  if(!data){alert("Escolhe uma data especial ❤️");return;}
+
+  document.body.innerHTML=`
+  <div class="final">
+    <h1>Está marcado, Anne ❤️</h1>
+    <p>Nosso jantar será em <strong>${formatarData(data)}</strong> ✨🍷</p>
+    <h2 id="contador"></h2>
+  </div>`;
+
+  iniciarContagem(data);
+  soltarCoracoes();
+}
+
+function formatarData(data){
+  const p=data.split("-");
+  return p[2]+"/"+p[1]+"/"+p[0];
+}
+
+function iniciarContagem(data){
+  const alvo=new Date(data).getTime();
+  const contador=document.getElementById("contador");
+
+  setInterval(()=>{
+    const agora=new Date().getTime();
+    const distancia=alvo-agora;
+
+    if(distancia<0){contador.innerHTML="É hoje ❤️";return;}
+
+    const dias=Math.floor(distancia/(1000*60*60*24));
+    contador.innerHTML="Faltam "+dias+" dias para o nosso jantar 💕";
+  },1000);
+}
+
+function soltarCoracoes(){
+  setInterval(()=>{
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+20)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},3000);
+  },200);
+}
+
+</script>
+
+</body>
+</html>
